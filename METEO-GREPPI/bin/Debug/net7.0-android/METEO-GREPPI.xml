@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>METEO-GREPPI</name>
+    </assembly>
+    <members>
+        <member name="P:METEO_GREPPI.ViewModels.MeteoPageViewModel.Forecast">
+            <inheritdoc cref="F:METEO_GREPPI.ViewModels.MeteoPageViewModel.forecast"/>
+        </member>
+    </members>
+</doc>

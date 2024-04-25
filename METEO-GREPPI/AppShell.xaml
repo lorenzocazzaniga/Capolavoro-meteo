@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="METEO_GREPPI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:METEO_GREPPI"
+    xmlns:views="clr-namespace:METEO_GREPPI.Views"
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutIcon="settings_white.svg">
+
+    <FlyoutItem Title="Home"                 
+                Icon="casa2.png">
+
+        <ShellContent Title ="Home"
+                      Icon="casa2.png"
+                      
+        ContentTemplate="{DataTemplate views:MeteoPage}"
+        Shell.NavBarIsVisible="true"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Settings"  
+                Icon="settings2.png">
+
+        <ShellContent Title="Settings" 
+                      Icon="settings2.png"
+        ContentTemplate="{DataTemplate views:SettingsPage}"/>
+    </FlyoutItem>
+</Shell>

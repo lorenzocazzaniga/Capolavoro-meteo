@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:METEO_GREPPI.ViewModels"     
+             xmlns:model="clr-namespace:METEO_GREPPI.Model"
+             xmlns:converters ="clr-namespace:METEO_GREPPI.Converters"
+             x:Class="METEO_GREPPI.Views.MeteoPage">
+
+    <ContentPage.BindingContext>
+        <viewModel:MeteoPageViewModel
+            x:Name="viewModel"/>
+    </ContentPage.BindingContext>
+
+    <ScrollView Orientation="Vertical">
+        <VerticalStackLayout BackgroundColor="{AppThemeBinding Light= {StaticResource BackGroundLight},Dark= {StaticResource BackGroundDark}}">
+
+            <Image Source="{Binding Forecast.Current.Weather[0].Icon, StringFormat='https://openweathermap.org/img/wn//{0}@2x.png'}"
+                   HorizontalOptions="Center"
+                   WidthRequest="140"
+                   HeightRequest="140"/>
+
+            <Label Text="{Binding Forecast.Current.Temp,StringFormat='{0:F0}°C'}"
+                   HorizontalOptions="Center"
+                   FontSize="40"
+                   FontAttributes="None"
+                   TextColor="{AppThemeBinding Light= {StaticResource TextColorLight},Dark= {StaticResource TextColorDark}}"/>
+
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   Spacing="5">
+
+                <Frame BackgroundColor="#80FFFFFF"
+                           WidthRequest="89"
+                           HeightRequest="89"
+                       BorderColor="#512BD4">
+
+                    <VerticalStackLayout>
+                        <Image Source="humidity.svg"
+                            WidthRequest="30"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"/>
+
+                        <Label Text="{Binding Forecast.Current.Humidity,StringFormat='{0}%'}" 
+                            HorizontalOptions="Center"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="Black"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#80FFFFFF"
+                       WidthRequest="89"
+                       HeightRequest="89"
+                       BorderColor="#512BD4">
+                    
+                    <VerticalStackLayout>
+                        <Image Source="wind.svg"
+                            WidthRequest="30"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"/>
+
+                        <Label Text="{Binding Forecast.Current.WindSpeed,StringFormat='{0}m/s'}" 
+                            HorizontalOptions="Center"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="Black"/>
+
+                    </VerticalStackLayout>
+                    
+                </Frame>
+
+                <Frame BackgroundColor="#80FFFFFF"
+                       WidthRequest="89"
+                       HeightRequest="89"
+                       BorderColor="#512BD4">
+
+                    <VerticalStackLayout>
+                        <Image Source="cloudiness.svg"
+                            WidthRequest="30"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"/>
+
+                        <Label Text="{Binding Forecast.Current.Clouds,StringFormat='{0}%'}" 
+                            HorizontalOptions="Center"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="Black"/>
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+                <Frame BackgroundColor="#80FFFFFF"
+                       WidthRequest="89"
+                       HeightRequest="89"
+                       BorderColor="#512BD4">
+
+                    <VerticalStackLayout>
+                        <Image Source="pressure.svg"
+                            WidthRequest="30"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"/>
+
+                        <Label Text="{Binding Forecast.Current.Pressure,StringFormat='{0}hPa'}" 
+                            HorizontalOptions="Center"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="Black"/>
+
+                    </VerticalStackLayout>
+                </Frame>
+            </HorizontalStackLayout>
+
+            <Label Text="Next Hours"
+                   FontSize="20"
+                   Padding="20,35,0,5"
+                   TextColor="{AppThemeBinding Light= black ,Dark= #ff6600}"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"/>
+            
+            <CollectionView ItemsSource="{Binding Forecast.Hourly}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"
+                                       ItemSpacing="17"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Hourly">
+                        <Frame BackgroundColor="Transparent"
+                               BorderColor="#512BD4"                               
+                               WidthRequest="115"
+                               HeightRequest="285"
+                              >
+
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding Dt,Converter={converters:IntToDateTime},StringFormat='{0:dd/MM/yy}'}"
+                                       HorizontalOptions="Center"
+                                       FontSize="15"
+                                       TextColor="{AppThemeBinding Light= {StaticResource TextColorDark},Dark= {StaticResource TextColorDark}}"
+                                       FontAttributes="Bold"/>
+
+                                <Label Text="{Binding Dt,Converter={converters:IntToDateTime},StringFormat='{0:HH:mm}'}"
+                                       HorizontalOptions="Center"
+                                       FontSize="20"/>
+
+                                <Image Source="{Binding Weather[0].Icon, StringFormat='https://openweathermap.org/img/wn/{0}@2x.png'}"
+                                        HorizontalOptions="Center"
+                                        WidthRequest="60"
+                                        HeightRequest="60"/>
+
+                                <Label Text="{Binding Temp,StringFormat='{0:F0}°C'}"
+                                       HorizontalOptions="Center"/>
+
+                                <HorizontalStackLayout>
+                                    <Image Source="humidity.svg"
+                                        WidthRequest="18"
+                                        HeightRequest="18"
+                                        HorizontalOptions="Start"/>
+
+                                    <Label Text="{Binding Humidity,StringFormat='{0:F0}%'}"
+                                       HorizontalOptions="Center"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout>
+                                    <Image Source="wind.svg"
+                                        WidthRequest="18"
+                                        HeightRequest="18"
+                                        HorizontalOptions="Start"/>
+
+                                    <Label Text="{Binding WindSpeed,StringFormat='{0:F0}m/s'}"
+                                       HorizontalOptions="Center"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout>
+                                    <Image Source="pressure.svg"
+                                        WidthRequest="18"
+                                        HeightRequest="18"
+                                        HorizontalOptions="Start"/>
+
+                                    <Label Text="{Binding Pressure,StringFormat='{0:F0}hPa'}"
+                                       HorizontalOptions="Center"/>
+
+                                </HorizontalStackLayout>
+                                
+                                <HorizontalStackLayout>
+                                    <Image Source="uvi1.png"
+                                        WidthRequest="28"
+                                        HeightRequest="28"
+                                        HorizontalOptions="Start"/>
+
+                                    <Label Text="{Binding Uvi,StringFormat='{0:F0} UV'}"
+                                       HorizontalOptions="Center"/>
+                                </HorizontalStackLayout>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <Grid ColumnDefinitions="50*,25*"
+              RowDefinitions="*,auto,auto"
+                  Padding="10,50,0,0">
+                <Entry Placeholder="inserisci una città" 
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light= {StaticResource TextColorLight},Dark= {StaticResource TextColorDark}}"
+                       Margin="5"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       x:Name="entry"/>
+
+                <Button Text="SEND"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        TextColor="{AppThemeBinding Light= white,Dark= {StaticResource TextColorDark}}"
+                        BackgroundColor="{AppThemeBinding Light=#512BD4 ,Dark= #ff6600}"
+                        BorderColor="#512BD4"
+                        BorderWidth="2"
+                        Margin="5"              
+                        Clicked="Button_Clicked"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
